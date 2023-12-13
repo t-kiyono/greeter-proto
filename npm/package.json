@@ -1,0 +1,30 @@
+{
+  "name": "@t-kiyono/greeter-grpc-ts",
+  "version": "0.0.1",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/t-kiyono/greeter-proto.git"
+  },
+  "main": "dist/greeter_grpc_pb.js",
+  "typings": "dist/greeter_grpc_pb.d.ts",
+  "scripts": {
+    "node_protoc": "grpc_tools_node_protoc --js_out=import_style=commonjs,binary:./dist --grpc_out=grpc_js:./dist --plugin=protoc-gen-grpc=./node_modules/.bin/grpc_tools_node_protoc_plugin -I ./proto ./proto/greeter.proto",
+    "ts_protoc": "protoc --plugin=protoc-gen-ts=./node_modules/.bin/protoc-gen-ts --ts_out=grpc_js:./dist -I ./proto ./proto/greeter.proto",
+    "build": "mkdir dist && npm run node_protoc && npm run ts_protoc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "grpc_tools_node_protoc_ts": "^5.3.3",
+    "grpc-tools": "^1.12.4"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "dependencies": {
+    "@grpc/grpc-js": "^1.9.13"
+  }
+}
