@@ -1,0 +1,54 @@
+plugins {
+	id 'java'
+	id 'maven-publish'
+	id 'org.springframework.boot' version '3.2.0'
+	id 'io.spring.dependency-management' version '1.1.4'
+	id 'io.github.lognet.grpc-spring-boot' version '5.1.5'
+}
+
+group = 'net.devfit.grpc-sample'
+version = '0.0.1-SNAPSHOT'
+
+java {
+	sourceCompatibility = '21'
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+jar {
+	enabled = true
+	archiveClassifier = ''
+}
+
+bootJar {
+	enabled = false
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
+
+publishing {
+  repositories {
+    maven {
+      name = 'GitHubPackages'
+      url = uri('https://maven.pkg.github.com/t-kiyono/greeter-proto')
+      credentials {
+        username = project.findProperty('gpr.user') ?: System.getenv('USERNAME')
+        password = project.findProperty('gpr.key') ?: System.getenv('TOKEN')
+      }
+    }
+  }
+  publications {
+    gpr(MavenPublication) {
+      from(components.java)
+    }
+  }
+}

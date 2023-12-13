@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package net.devfit.grpcsample.greeterproto;
+
+service Greeter {
+  // Unary RPC (単一リクエスト、単一レスポンス)
+  rpc SayHelloUnary (GreeterRequest) returns (GreeterReply) {}
+  // Server streaming RPC (単一リクエスト、複数レスポンス)
+  rpc SayHelloServerStreaming (GreeterRequest) returns (stream GreeterReply) {}
+  // Client streaming RPC (複数リクエスト、単一レスポンス)
+  rpc SayHelloClientStreaming (stream GreeterRequest) returns (GreeterReply) {}
+  // Bidirectional streaming RPC (複数リクエスト、複数レスポンス) 
+  rpc SayHelloBidirectionalStreaming (stream GreeterRequest) returns (stream GreeterReply) {}
+}
+
+// リクエストにはユーザー名を含む
+message GreeterRequest {
+  string name = 1;
+}
+
+// レスポンスはメッセージ文字列
+message GreeterReply {
+  string message = 1;
+}
