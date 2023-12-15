@@ -1,2 +1,2 @@
-export * from './greeter_pb';
-export * from './greeter_grpc_pb';
+export * from './codegen/greeter_grpc_pb';
+export * from './codegen/greeter_pb';
